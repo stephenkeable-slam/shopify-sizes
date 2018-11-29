@@ -1,0 +1,29 @@
+<p>Product URL</p>
+
+<p><input type="text" id="url"></p>
+
+<p><button id="button">Get Sizes</button></p>
+
+<table id="output"></table>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<script>
+
+  $("#button").on('click', function(e) {
+    e.preventDefault();
+    var url = $("#url").val() + ".json";
+
+    $("#output").empty();
+
+    $.getJSON(url, function(data) {
+      var numVariants = data.product.variants.length;
+      for (i = 0; i < numVariants; i++) {
+        var variant = data.product.variants[i];
+        var variantStr = "<td>" + variant.title + "</td><td>" + variant.inventory_quantity + "</td>";
+        $("#output").append("<tr>" + variantStr + "</tr>");
+      }
+    });
+  });
+
+</script>
